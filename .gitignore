@@ -1,6 +1,7 @@
 actions
 globalmacro
 groups
+host_groups
 hosts
 images
 maintenances

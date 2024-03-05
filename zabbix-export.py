@@ -216,6 +216,8 @@ def main(zabbix_, save_yaml, directory, only="all"):
     logging.info("Start export XML part...")
     if only in ("all", "groups"):
         export(zabbix_.hostgroup, "groups", "groupid", "name")
+    if only in ("all", "host_groups"):
+        export(zabbix_.hostgroup, "host_groups", "groupid", "name")
     if only in ("all", "hosts"):
         export(zabbix_.host, "hosts", "hostid", "name")
     if only in ("all", "templates"):
@@ -707,7 +709,7 @@ def parse_args():
         choices=[
             "all",
             "hosts",
-            "groups",
+            "host_groups",
             "templates",
             "valuemaps",
             "maps",
