@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import argparse
 import logging
 import os
@@ -414,31 +415,31 @@ def import_host(
                 "host": host["host"],
                 "name": host["name"],
                 "description": host["description"] if "description" in host else "",
-                "proxy_hostid": proxy2proxyid[host["proxy"]["name"]]
-                if "proxy" in host
-                else 0,
+                "proxy_hostid": (
+                    proxy2proxyid[host["proxy"]["name"]] if "proxy" in host else 0
+                ),
                 "status": host["status"],
                 "tls_connect": host["tls_connect"] if "tls_connect" in host else "",
                 "tls_accept": host["tls_accept"] if "tls_accept" in host else "",
                 "tls_issuer": host["tls_issuer"] if "tls_issuer" in host else "",
                 "tls_subject": host["tls_subject"] if "tls_subject" in host else "",
-                "tls_psk_identity": host["tls_psk_identity"]
-                if "tls_psk_identity" in host
-                else "",
+                "tls_psk_identity": (
+                    host["tls_psk_identity"] if "tls_psk_identity" in host else ""
+                ),
                 "tls_psk": host["tls_psk"] if "tls_psk" in host else "",
                 "interfaces": interfaces,
                 "macros": macros,
                 "templates": linked_templates,
                 "groups": groups,
-                "inventory_mode": host["inventory"]["inventory_mode"]
-                if "inventory" in host
-                else 0,
-                "ipmi_authtype": host["ipmi_authtype"]
-                if "ipmi_authtype" in host
-                else -1,
-                "ipmi_privilege": host["ipmi_privilege"]
-                if "ipmi_privilege" in host
-                else 2,
+                "inventory_mode": (
+                    host["inventory"]["inventory_mode"] if "inventory" in host else 0
+                ),
+                "ipmi_authtype": (
+                    host["ipmi_authtype"] if "ipmi_authtype" in host else -1
+                ),
+                "ipmi_privilege": (
+                    host["ipmi_privilege"] if "ipmi_privilege" in host else 2
+                ),
             }
         )
         logging.debug(pformat(result))
@@ -517,38 +518,40 @@ def import_host(
                         "name": test["name"],
                         "hostid": new_hostid,
                         "delay": test["delay"] if "delay" in test else "1m",
-                        "headers": test["headers"]["header"]
-                        if "headers" in test
-                        else [],
+                        "headers": (
+                            test["headers"]["header"] if "headers" in test else []
+                        ),
                         "retries": test["attempts"],
                         "steps": test["steps"]["step"],
                         "agent": test["agent"] if "agent" in test else "Zabbix",
                         "status": test["status"] if "status" in test else 0,
-                        "authentication": test["authentication"]
-                        if "authentication" in test
-                        else 0,
-                        "http_password": test["http_password"]
-                        if "http_password" in test
-                        else "",
-                        "http_proxy": test["http_proxy"]
-                        if "http_proxy" in test
-                        else "",
+                        "authentication": (
+                            test["authentication"] if "authentication" in test else 0
+                        ),
+                        "http_password": (
+                            test["http_password"] if "http_password" in test else ""
+                        ),
+                        "http_proxy": (
+                            test["http_proxy"] if "http_proxy" in test else ""
+                        ),
                         "http_user": test["http_user"] if "http_user" in test else "",
-                        "ssl_cert_file": test["ssl_cert_file"]
-                        if "ssl_cert_file" in test
-                        else "",
-                        "ssl_key_file": test["ssl_key_file"]
-                        if "ssl_key_file" in test
-                        else "",
-                        "ssl_key_password": test["ssl_key_password"]
-                        if "ssl_key_password" in test
-                        else "",
-                        "verify_host": test["verify_host"]
-                        if "verify_host" in test
-                        else 0,
-                        "verify_peer": test["verify_peer"]
-                        if "verify_peer" in test
-                        else 0,
+                        "ssl_cert_file": (
+                            test["ssl_cert_file"] if "ssl_cert_file" in test else ""
+                        ),
+                        "ssl_key_file": (
+                            test["ssl_key_file"] if "ssl_key_file" in test else ""
+                        ),
+                        "ssl_key_password": (
+                            test["ssl_key_password"]
+                            if "ssl_key_password" in test
+                            else ""
+                        ),
+                        "verify_host": (
+                            test["verify_host"] if "verify_host" in test else 0
+                        ),
+                        "verify_peer": (
+                            test["verify_peer"] if "verify_peer" in test else 0
+                        ),
                     }
                 )
 
@@ -592,23 +595,25 @@ def import_host(
                         "status": item["status"],
                         "units": item["units"] if "units" in item else "",
                         "authtype": item["authtype"],
-                        "description": item["description"]
-                        if "description" in item
-                        else "",
+                        "description": (
+                            item["description"] if "description" in item else ""
+                        ),
                         "snmpv3_securitylevel": item["snmpv3_securitylevel"],
                         "snmpv3_authprotocol": item["snmpv3_authprotocol"],
                         "snmpv3_privprotocol": item["snmpv3_privprotocol"],
-                        "snmp_community": item["snmp_community"]
-                        if "snmp_community" in item
-                        else "",
+                        "snmp_community": (
+                            item["snmp_community"] if "snmp_community" in item else ""
+                        ),
                         "snmp_oid": item["snmp_oid"] if "snmp_oid" in item else "",
                         "applications": [
                             app2id[x["name"]]
                             for x in item["applications"]["application"]
                         ],
-                        "preprocessing": item["preprocessing"]["step"]
-                        if "preprocessing" in item
-                        else [],
+                        "preprocessing": (
+                            item["preprocessing"]["step"]
+                            if "preprocessing" in item
+                            else []
+                        ),
                     }
                 )
 
@@ -655,23 +660,25 @@ def import_host(
                         "master_itemid": key2itemid[item["master_item"]["key"]],
                         "units": item["units"] if "units" in item else "",
                         "authtype": item["authtype"],
-                        "description": item["description"]
-                        if "description" in item
-                        else "",
+                        "description": (
+                            item["description"] if "description" in item else ""
+                        ),
                         "snmpv3_securitylevel": item["snmpv3_securitylevel"],
                         "snmpv3_authprotocol": item["snmpv3_authprotocol"],
                         "snmpv3_privprotocol": item["snmpv3_privprotocol"],
-                        "snmp_community": item["snmp_community"]
-                        if "snmp_community" in item
-                        else "",
+                        "snmp_community": (
+                            item["snmp_community"] if "snmp_community" in item else ""
+                        ),
                         "snmp_oid": item["snmp_oid"] if "snmp_oid" in item else "",
                         "applications": [
                             app2id[x["name"]]
                             for x in item["applications"]["application"]
                         ],
-                        "preprocessing": item["preprocessing"]["step"]
-                        if "preprocessing" in item
-                        else [],
+                        "preprocessing": (
+                            item["preprocessing"]["step"]
+                            if "preprocessing" in item
+                            else []
+                        ),
                     }
                 )
 
@@ -935,9 +942,9 @@ def import_template(zabbix, yml, group2groupid, template2templateid):
             {
                 "host": new_template["template"],
                 "name": new_template["name"],
-                "description": new_template["description"]
-                if "description" in new_template
-                else "",
+                "description": (
+                    new_template["description"] if "description" in new_template else ""
+                ),
                 "groups": groups,
                 "templates": linked_templates,
                 "macros": macros,
@@ -1067,17 +1074,17 @@ def import_action(
                 and condition["operator"] == 7
                 and api_version >= parse_version("4.0")
             ):  # not in maintenance/suppression
-                condition[
-                    "operator"
-                ] = 11  # new in 4.x: see https://www.zabbix.com/documentation/4.2/manual/api/reference/action/object#action_filter_condition
+                condition["operator"] = (
+                    11  # new in 4.x: see https://www.zabbix.com/documentation/4.2/manual/api/reference/action/object#action_filter_condition
+                )
             if (
                 condition["conditiontype"] == 16
                 and condition["operator"] == 4
                 and api_version >= parse_version("4.0")
             ):  # in maintenance/suppression
-                condition[
-                    "operator"
-                ] = 10  # new in 4.x: see https://www.zabbix.com/documentation/4.2/manual/api/reference/action/object#action_filter_condition
+                condition["operator"] = (
+                    10  # new in 4.x: see https://www.zabbix.com/documentation/4.2/manual/api/reference/action/object#action_filter_condition
+                )
             # 4->3 import:
             if (
                 condition["conditiontype"] == 16
@@ -1221,9 +1228,9 @@ def import_screen(
                     "max_columns": si["max_columns"] if "max_columns" in si else 3,
                     "resourceid": si["resourceid"],
                     "rowspan": si["rowspan"] if "rowspan" in si else 1,
-                    "sort_triggers": si["sort_triggers"]
-                    if "sort_triggers" in si
-                    else 0,
+                    "sort_triggers": (
+                        si["sort_triggers"] if "sort_triggers" in si else 0
+                    ),
                     "style": si["style"] if "style" in si else 0,
                     "url": si["url"] if "url" in si else "",
                     "valign": si["valign"] if "valign" in si else 0,
